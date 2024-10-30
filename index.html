@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Radar Meteorológico Infrarrojo</title>
+  <!-- Incluir la librería Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    #map { height: 600px; width: 100%; }
+  </style>
+</head>
+<body>
+  <h1>Radar Meteorológico Infrarrojo</h1>
+  <div id="map"></div>
+
+  <!-- Incluir la librería Leaflet -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <script>
+    // Inicializar el mapa
+    const map = L.map('map').setView([18.5311, -69.9064], 5); // Nueva York, coordenadas de ejemplo
+
+    // Añadir la capa base del mapa (OpenStreetMap)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: '© OpenStreetMap'
+    }).addTo(map);
+
+    // Tu API key de OpenWeatherMap o similar
+    const apiKey = '0f8b41aaff55557ca0749c2996270010';
+
+    // Añadir capa de imágenes infrarrojas (usando OpenWeatherMap)
+    const infraredLayer = L.tileLayer(`https://tile.openweathermap.org/map/ir/{z}/{x}/{y}.png?appid=${apiKey}`, {
+      attribution: '&copy; <a href="https://openweathermap.org/">OpenWeatherMap</a>',
+      opacity: 0.7
+    }).addTo(map);
+
+    // Capa adicional de nubes (opcional)
+    const cloudsLayer = L.tileLayer(`https://tile.openweathermap.org/map/clouds/{z}/{x}/{y}.png?appid=${apiKey}`, {
+      attribution: '&copy; <a href="https://openweathermap.org/">OpenWeatherMap</a>',
+      opacity: 0.7
+    });
+
+    // Capa adicional de precipitaciones (opcional)
+    const precipitationLayer = L.tileLayer(`https://tile.openweathermap.org/map/precipitation/{z}/{x}/{y}.png?appid=${apiKey}`, {
+      attribution: '&copy; <a href="https://openweathermap.org/">OpenWeatherMap</a>',
+      opacity: 0.5
+    });
+
+    // Crear controles para capas interactivas
+    const baseMaps = {
+      "Infrarrojo": infraredLayer,
+      "Nubes": cloudsLayer,
+      "Precipitaciones": precipitationLayer
+    };
+
+
+
+
+
+    L.control.layers(baseMaps).addTo(map);
+
+       
+
+  
+
+  </script>
+
+
+</body>
+</html>
